@@ -1,7 +1,8 @@
 
 /*
-    Unit testing macro functions
+    Unit testing library
     ---------
+    - Single header
     - Formatted info messages
     - Custom test failure messages
 
@@ -9,6 +10,8 @@
             test_strs_eq (str1, str2, " ");     // single space for no message
 
     - Example usage:
+
+        ------- tests.c -------
 
         #include "tests.h"
         #include "unit_test.h"
@@ -24,7 +27,8 @@
             test_results();
         }
 
-        ------------------
+        ------- main.c -------
+
         #include "tests.h"
 
         int passed = 0,
