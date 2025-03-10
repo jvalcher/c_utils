@@ -1,10 +1,22 @@
 #!/bin/bash
 
+#######
+
+label () {
+    printf " ----------\n$1\n ----------\n"
+}
+
 CC () {
     gcc -g -Wall -Wextra $@
 }
 
+######## Tests
 
-# unit_test.h
-CC ./test_unit_test.c && ./a.out
+echo ""
 
+label "unit_test.h" && CC ./test_unit_test.c && ./a.out
+label "benchmark.h" && CC ./test_benchmark.c && ./a.out
+
+echo ""
+
+########
