@@ -60,7 +60,7 @@ extern int failed;
 
 
 /*
-    Initialize test statistics; print function and file header
+    Reset statistics; print function and file header
     --------
     - Run at start of every test function
 */
