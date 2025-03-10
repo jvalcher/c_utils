@@ -64,8 +64,8 @@ extern int failed;
     --------
     - Run at start of every test function
 */
-#define test_init() \
-do { \
+#define test_init() ({\
+\
     passed = 0; \
     failed = 0; \
 \
@@ -73,8 +73,7 @@ do { \
         DIV CYAN "%s" R " :: " PURPLE "%s" R "()\n" DIV, \
         __FILE__, __func__ \
     ); \
-\
-} while (0)
+})
 
 
 /*
@@ -82,13 +81,12 @@ do { \
     --------
     - Run at the end of every test function
 */
-#define test_results() \
-do { \
+#define test_results() ({ \
     printf (\
         "Passed: " GREEN "%d" R ",  Failed: " RED "%d\n" R "\n", \
         passed, failed \
     ); \
-} while (0)
+})
 
 
 
@@ -102,12 +100,11 @@ do { \
         - Custom error message
     - Printed between test_init() and test_results() output
 */
-#define print_test_failed(...) \
-do { \
+#define print_test_failed(...) ({ \
     printf (CYAN "  Line " YELLOW "%d" R "  ", __LINE__); \
     printf (__VA_ARGS__); \
     printf ("\n"); \
-} while (0)
+})
 
 
 
@@ -120,8 +117,7 @@ do { \
 /*
     Test conditional statement
 */
-#define test_cond(condition, ...) \
-do { \
+#define test_cond(condition, ...) ({ \
     if (!(condition)) { \
         FAIL; \
         printf("(%s)", #condition); \
@@ -130,14 +126,13 @@ do { \
     } else { \
         ++passed; \
     } \
-} while (0)
+})
 
 
 /*
     Test if strings equal
 */
-#define test_strs_eq(str1, str2, ...) \
-do { \
+#define test_strs_eq(str1, str2, ...) ({ \
     if (strcmp((str1), (str2)) != 0) { \
         FAIL; \
         printf("(%s == %s)", #str1, #str2); \
@@ -146,14 +141,13 @@ do { \
     } else { \
         ++passed; \
     } \
-} while (0)
+})
 
 
 /*
     Test if strings not equal
 */
-#define test_strs_neq(str1, str2, ...) \
-do { \
+#define test_strs_neq(str1, str2, ...) ({ \
     if (strcmp((str1), (str2)) == 0) { \
         FAIL; \
         printf("(%s != %s)", #str1, #str2); \
@@ -162,7 +156,7 @@ do { \
     } else { \
         ++passed; \
     } \
-} while (0)
+})
 
 
 #endif
