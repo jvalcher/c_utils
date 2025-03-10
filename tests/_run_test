@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Run specific test
+
+gcc -g -Wall -Wextra $@ && ./a.out
+
