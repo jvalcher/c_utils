@@ -11,7 +11,7 @@
 
     Functions:
 
-        void        start     (void)
+        void        start     (bm_time_t time)
         bm_result_t stop_sec  (bm_time_t time)
         bm_result_t stop_msec (bm_time_t time)
         bm_result_t stop_usec (bm_time_t time)
