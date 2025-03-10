@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "../inc/benchmark.h"
 
 #define R     "\033[1;0m"
@@ -14,38 +13,29 @@ int fibonacci(int n) {
 
 int main (void)
 {
-    int n, runs = 100;
+    int runs;
     bm_data_t data;
+    double results[3];
 
-    // seconds
+    runs = 100;
     bm_init (data);
-    for (n = 0; n < runs; n++) {
+    for (int n = 0; n < runs; n++) {
         start (data);
         fibonacci (30);
-        stop_sec (data);
+        stop (data);
     }
-    printf (CYAN " fibonacci" R "() averaged " SEC " seconds over %d runs\n",
-        data.avg_time, runs);
 
-    // milliseconds
-    bm_init (data);
-    for (n = 0; n < runs; n++) {
-        start (data);
-        fibonacci (30);
-        stop_msec (data);
-    }
-    printf (CYAN " fibonacci" R "() averaged " MSEC " milliseconds over %d runs\n",
-        data.avg_time, runs);
+    print_results(data, "fibonacci()");
 
-    // microseconds
-    bm_init (data);
-    for (n = 0; n < runs; n++) {
-        start (data);
-        fibonacci (30);
-        stop_usec (data);
+    results[0] = get_secs (data);
+    results[1] = get_msecs (data);
+    results[2] = get_usecs (data);
+
+    for (int i = 0; i < 3; i++) {
+        printf ("results[%d]: %f\n", i, results[i]);
     }
-    printf (CYAN " fibonacci" R "() averaged " USEC " microseconds over %d runs\n",
-        data.avg_time, runs);
+
+    puts("");
 
     return 0;
 }
