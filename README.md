@@ -10,5 +10,5 @@
 
 ## Benchmarking
 - __File(s)__:  `inc/benchmark.h`
-- __Description__:  Single header benchmarking library
+- __Description__:  Single header benchmarking library that calculates multi-run average in seconds, milliseconds, microseconds
 
