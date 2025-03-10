@@ -1,12 +1,12 @@
 
 # C Utilties
 
-## Unit testing library
+## Libraries
 
-- __Path__: `inc/unit_test.h`
-- __Description__: Single-header unit testing library
+- __File__: `inc/unit_test.h`
+- __Description__: Single header file unit testing library
+- __Test output__:
 
-<br>
 <p align="center"><img margin-left="auto" src="./images/unit_test.png"></p>
 <br>
 
