@@ -24,18 +24,18 @@
 
     - Example usage:
 
-int runs = 100;
-bm_data_t data;
+        int runs = 100;
+        bm_data_t data;
 
-bm_init (data);
-for (int n = 0; n < runs; n++) {
-    start (data);
-    fibonacci (30);
-    stop_msec (data);
-}
+        bm_init (data);
+        for (int n = 0; n < runs; n++) {
+            start (data);
+            fibonacci (30);
+            stop_msec (data);
+        }
 
-printf ("fibonacci(): averaged " MSEC " milliseconds over %d runs\n",
-    data.avg_time, runs);
+        printf ("fibonacci(): averaged " MSEC " milliseconds over %d runs\n",
+            data.avg_time, runs);
 */
 
 #include <sys/time.h>
