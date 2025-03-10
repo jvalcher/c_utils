@@ -54,12 +54,16 @@
 
 
 
-/*
-    Initialize test statistics, print function and file
-*/
+// Initialize once in main() file
 extern int passed;
 extern int failed;
 
+
+/*
+    Initialize test statistics; print function and file header
+    --------
+    - Run at start of every test function
+*/
 #define test_init() \
 do { \
     passed = 0; \
@@ -76,10 +80,7 @@ do { \
 /*
     Print test statistics
     --------
-    - Insert at the end of a test function
-    - Only works if not built with TEST_CONT
-    - Output:
-        "Success: my_tests.c :: test_my_output()"
+    - Run at the end of every test function
 */
 #define test_results() \
 do { \
@@ -92,20 +93,18 @@ do { \
 
 
 /*
-    Print test failed message and exit (if TEST_CONT not set)
+    Print test failed message
     -------
-    - Print:
-        - Condition tested
-        - Test file, line, function
-        - Custom error message or not (see usage above)
     - Used by test functions below
-    - Output: 
-        Failure: (x > 4) unit_test_strs.c:12 :: test_strs()  x is not greater than 4
+    - Output:
+        - Condition tested
+        - Line number
+        - Custom error message
+    - Printed between test_init() and test_results() output
 */
 #define print_test_failed(...) \
 do { \
-    printf (CYAN "  Line " YELLOW "%d" R "  ", \
-    __LINE__); \
+    printf (CYAN "  Line " YELLOW "%d" R "  ", __LINE__); \
     printf (__VA_ARGS__); \
     printf ("\n"); \
 } while (0)
@@ -117,7 +116,6 @@ do { \
  ****************/
 
 #define FAIL printf("\t" RED "FAIL" R "  ")
-
 
 /*
     Test conditional statement
