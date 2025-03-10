@@ -1,0 +1,10 @@
+#!/bin/bash
+
+CC () {
+    gcc -g -Wall -Wextra $@
+}
+
+
+# unit_test.h
+CC ./test_unit_test.c && ./a.out
+
