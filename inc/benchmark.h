@@ -4,32 +4,38 @@
 /*
     Benchmarking library
     --------
-    Data types:
+    - Calculates runtime averages in seconds, milliseconds, microseconds
+    - Single header
 
-        bm_time_t    (struct timeval)
-        bm_result_t  (double)
+    - Data types:
 
-    Functions:
+        bm_data_t
 
-        void        start     (bm_time_t time)
-        bm_result_t stop_sec  (bm_time_t time)
-        bm_result_t stop_msec (bm_time_t time)
-        bm_result_t stop_usec (bm_time_t time)
+    - Functions:
 
-    Format specifier strings:
+        void start     (bm_data_t data)
+        void stop_sec  (bm_data_t data)
+        void stop_msec (bm_data_t data)
+        void stop_usec (bm_data_t data)
+
+    - Format specifier strings:
 
         SEC, MSEC, USEC
 
-    Example usage:
+    - Example usage:
 
-        bm_time_t   time;
-        bm_result_t result;
+int runs = 100;
+bm_data_t data;
 
-        start (time);
-        fibonacci (30);
-        result = stop_msec (time);
+bm_init (data);
+for (int n = 0; n < runs; n++) {
+    start (data);
+    fibonacci (30);
+    stop_msec (data);
+}
 
-        printf ("Fibonacci time: " MSEC " milliseconds\n", result);
+printf ("fibonacci(): averaged " MSEC " milliseconds over %d runs\n",
+    data.avg_time, runs);
 */
 
 #include <sys/time.h>
@@ -38,8 +44,12 @@
 /*
     Data types
 */
-typedef struct timeval  bm_time_t;
-typedef double          bm_result_t;
+typedef struct bm_data {
+    struct timeval start_time;
+    int    count;
+    double time;
+    double avg_time;
+} bm_data_t;
 
 
 /*
@@ -54,36 +64,55 @@ typedef double          bm_result_t;
     Functions
 */
 
+// Initialize bm_data_t struct
+#define bm_init(data) ({ \
+    data.count = 0; \
+    data.time = 0.0; \
+    data.avg_time = 0.0; \
+})
+
 // Get start time
-#define start(start_time) ({ \
-    gettimeofday(&start_time, ((void*)0) ); \
+#define start(data) ({ \
+    gettimeofday(&(data).start_time, ((void*)0) ); \
 })
 
 
-// Get stop time, return result in seconds
-#define stop_sec(start_time) ({ \
+// Calculate running average time
+#define calc_avg_time(data) ({ \
+    data.count += 1; \
+    data.avg_time = data.avg_time + ((data.time - data.avg_time) / data.count); \
+})
+
+// Get stop time, calculate average runtime in seconds
+#define stop_sec(data) ({ \
+    struct timeval start_time = (data).start_time; \
     struct timeval stop_time; \
     gettimeofday(&stop_time, ((void*)0) ); \
-    (stop_time.tv_sec - start_time.tv_sec) + \
+    data.time = (stop_time.tv_sec - start_time.tv_sec) + \
         ((stop_time.tv_usec - start_time.tv_usec) / 1000000.0); \
+    calc_avg_time(data); \
 })
 
 
-// Get stop time, return result in milliseconds
-#define stop_msec(start_time) ({ \
+// Get stop time, calculate average runtime in milliseconds
+#define stop_msec(data) ({ \
+    struct timeval start_time = data.start_time; \
     struct timeval stop_time; \
     gettimeofday(&stop_time, ((void*)0) ); \
-    ((stop_time.tv_sec - start_time.tv_sec) * 1000.0) + \
+    data.time = ((stop_time.tv_sec - start_time.tv_sec) * 1000.0) + \
         ((stop_time.tv_usec - start_time.tv_usec) / 1000.0); \
+    calc_avg_time(data); \
 })
 
 
-// Get stop time, return result in microseconds
-#define stop_usec(start_time) ({ \
+// Get stop time, calculate average runtime in microseconds
+#define stop_usec(data) ({ \
+    struct timeval start_time = data.start_time; \
     struct timeval stop_time; \
     gettimeofday(&stop_time, ((void*)0) ); \
-    (stop_time.tv_sec - start_time.tv_sec) * 1000000.0 + \
+    data.time = (stop_time.tv_sec - start_time.tv_sec) * 1000000.0 + \
         stop_time.tv_usec - start_time.tv_usec; \
+    calc_avg_time(data); \
 })
 
 
