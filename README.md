@@ -1,5 +1,5 @@
 
-# C Utilties
+# C Utilities
 
 ## Libraries
 
