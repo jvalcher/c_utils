@@ -17,7 +17,7 @@
         double bm_get_msecs (bm_data_t data)
         double bm_get_usecs (bm_data_t data)
 
-        void bm_print_results (bm_data_t data)
+        void bm_print_results (bm_data_t data, char* title)
 
     - Usage:
 
@@ -32,7 +32,7 @@
             bm_stop (data);
         }
 
-        bm_print_results (data, "fibonacci()");
+        bm_print_results (data, "fibonacci (30)");
 
         results[0] = bm_get_secs (data);
         results[1] = bm_get_msecs (data);
