@@ -20,16 +20,16 @@ int main (void)
     runs = 100;
     bm_init (data);
     for (int n = 0; n < runs; n++) {
-        start (data);
+        bm_start (data);
         fibonacci (30);
-        stop (data);
+        bm_stop (data);
     }
 
-    print_results(data, "fibonacci()");
+    bm_print_results(data, "fibonacci (30)");
 
-    results[0] = get_secs (data);
-    results[1] = get_msecs (data);
-    results[2] = get_usecs (data);
+    results[0] = bm_get_secs (data);
+    results[1] = bm_get_msecs (data);
+    results[2] = bm_get_usecs (data);
 
     for (int i = 0; i < 3; i++) {
         printf ("results[%d]: %f\n", i, results[i]);

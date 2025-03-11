@@ -1,6 +1,3 @@
-#ifndef BENCHMARK_H
-#define BENCHMARK_H
-
 /*
     Benchmarking library
     --------
@@ -13,14 +10,14 @@
 
     - Functions:
 
-        void start (bm_data_t data)
-        void stop  (bm_data_t data)
+        void bm_start (bm_data_t data)
+        void bm_stop  (bm_data_t data)
 
-        double get_secs  (bm_data_t data)
-        double get_msecs (bm_data_t data)
-        double get_usecs (bm_data_t data)
+        double bm_get_secs  (bm_data_t data)
+        double bm_get_msecs (bm_data_t data)
+        double bm_get_usecs (bm_data_t data)
 
-        void print_results (bm_data_t data)
+        void bm_print_results (bm_data_t data)
 
     - Usage:
 
@@ -30,16 +27,16 @@
         bm_init (data);
 
         for (int n = 0; n < 100; n++) {
-            start (data);
+            bm_start (data);
             fibonacci (30);
-            stop (data);
+            bm_stop (data);
         }
 
-        print_results (data, "fibonacci()");
+        bm_print_results (data, "fibonacci()");
 
-        results[0] = get_secs (data);
-        results[1] = get_msecs (data);
-        results[2] = get_usecs (data);
+        results[0] = bm_get_secs (data);
+        results[1] = bm_get_msecs (data);
+        results[2] = bm_get_usecs (data);
 
     - Output:
 
@@ -50,7 +47,8 @@
           milliseconds:  5.334
           microseconds:  5334
 */
-
+#ifndef BENCHMARK_H
+#define BENCHMARK_H
 
 #include <stdio.h>
 #include <sys/time.h>
@@ -91,7 +89,7 @@ typedef struct bm_data {
 /*
     Get start time
 */
-#define start(data) ({ \
+#define bm_start(data) ({ \
     gettimeofday(&(data).start_time, ((void*)0) ); \
 })
 
@@ -99,7 +97,7 @@ typedef struct bm_data {
 /*
     Get stop time and update average runtimes (seconds, milliseconds, microseconds)
 */
-#define stop(data) ({ \
+#define bm_stop(data) ({ \
 \
     struct timeval start_time = (data).start_time; \
     struct timeval stop_time; \
@@ -122,7 +120,7 @@ typedef struct bm_data {
 #define MSEC "%.3f"
 #define USEC "%.f"
 
-#define print_results(data,msg) ({ \
+#define bm_print_results(data,msg) ({ \
     printf ("\n" DIV CYAN "%s" R "  (" YELLOW "%d" R " runs)\n" DIV \
             "  seconds:       " SEC  "\n" \
             "  milliseconds:  " MSEC "\n" \
@@ -134,11 +132,11 @@ typedef struct bm_data {
 /*
     Get average runtime values
 */
-#define get_secs(data)  (data).avg_time_sec
+#define bm_get_secs(data)  (data).avg_time_sec
 
-#define get_msecs(data) (data).avg_time_msec
+#define bm_get_msecs(data) (data).avg_time_msec
 
-#define get_usecs(data) (data).avg_time_usec
+#define bm_get_usecs(data) (data).avg_time_usec
 
 
 #endif
