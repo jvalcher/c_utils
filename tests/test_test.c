@@ -1,8 +1,11 @@
-#include "../inc/unit_test.h"
+#include "../inc/test.h"
 
 
 void test_ints (void)
 {
+    int passed = 0,
+        failed = 0;
+
     int x = 7;
     int y = 19;
 
@@ -16,6 +19,9 @@ void test_ints (void)
 
 void test_strs (void)
 {
+    int passed = 0,
+        failed = 0;
+
     const char* str1 = "Hello, world!";
     const char* str2 = "Hello, world!";
     const char* str3 = "Hello there, good looking!";
@@ -32,11 +38,6 @@ void test_strs (void)
 
 
 /*******************/
-
-
-// Initialize once globally in main() file
-int passed = 0,
-    failed = 0;
 
 int main (void)
 {

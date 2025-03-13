@@ -14,7 +14,7 @@ CC () {
 
 echo ""
 
-label "unit_test.h" && CC ./test_unit_test.c && ./a.out
+label "test.h" && CC ./test_test.c && ./a.out
 label "benchmark.h" && CC ./test_benchmark.c && ./a.out
 
 echo ""

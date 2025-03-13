@@ -1,13 +1,29 @@
 
 /*
-    Unit testing library
-    ---------
+    -----------------
+     Testing library
+    -----------------
     - Single header
     - Formatted info messages
     - Custom test failure messages
 
             test_strs_eq (str1, str2 "\'%s\' is not equal to \'%s\'", str1, str2);
             test_strs_eq (str1, str2, " ");     // single space for no message
+
+    - Variables
+
+        int passed, failed  - Initialize globally in test file
+
+    - Functions
+        
+        test_init       - Set passed, failed variables to 0
+                        - Print test header with current file and function
+
+        test_cond       - Conditional statement
+        test_strs_eq    - Strings are equal
+        test_strs_neq   - Strings are not equal
+
+        test_results    - Print test results
 
     - Example usage:
 
@@ -18,11 +34,13 @@
 
         void run_tests_01 ()
         {
+            // ...
+
             test_init();
 
-            test_cond     (x > 5, "Test failed");
-            test_strs_eq  (str1, str2, "...");
-            test_strs_neq (str1, str2, "...");
+            test_cond     (x > 5, "Test failed: \'%d\' is not greater than 5", x);
+            test_strs_eq  (str1, str2, "\'%s\' not equal to \'%s\'", str1, str2);
+            test_strs_neq (str2, str3, " ");
 
             test_results();
         }
@@ -31,7 +49,7 @@
 
         #include "tests.h"
 
-        int passed = 0,
+        int passed = 0,         // Initialize globally or inside individual test functions
             failed = 0;
 
         int main ()
@@ -39,10 +57,19 @@
             run_tests_01();
             return 0;
         }
+
+    - Output:
+
+        ---------------------
+        ./tests.c :: run_tests_01()
+        ---------------------
+            FAIL  (x > 5) Line 25  Test failed: '4' is not greater than 5
+            FAIL  (str1 != str2)  Line 27
+        Passed: 1,  Failed: 2
 */
 
-#ifndef UNIT_TEST
-#define UNIT_TEST
+#ifndef TEST_H
+#define TEST_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -116,7 +143,7 @@ extern int failed;
   Test functions
  ****************/
 
-#define FAIL printf("\t" RED "FAIL" R "  ")
+#define FAIL printf("    " RED "FAIL" R "  ")
 
 /*
     Test conditional statement
@@ -161,6 +188,15 @@ extern int failed;
         ++passed; \
     } \
 })
+
+
+
+/*
+    -----------------------
+     # Integration Testing
+    -----------------------
+    - 
+*/
 
 
 #endif
