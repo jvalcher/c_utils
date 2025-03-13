@@ -41,7 +41,7 @@
     - Output:
 
         --------------------------
-        fibonacci()  (100 runs)
+        fibonacci (30)  (100 runs)
         --------------------------
           seconds:       0.005334
           milliseconds:  5.334
