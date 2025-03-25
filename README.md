@@ -1,26 +1,30 @@
 
 # C Utilities
+Miscellaneous C language utilities
+<br><br>
 
 ## Singler header libraries
+<br>
 
 ### test.h
-- __Description__:  Single header unit testing library
-- __Example usage__:
+- Unit testing library
+- Example usage:
 ```c
 int passed = 0,
     failed = 0;
 test_init();
-test_cond     (x > 5, "Test failed: \'%d\' is not greater than 5", x);
-test_strs_eq  (str1, str2, "\'%s\' not equal to \'%s\'", str1, str2);
-test_strs_neq (str2, str3, " ");
+test_cond     (y != 19, "\'y\' is equal to 19", y);
+test_strs_eq  (str2, str3, "\'%s\' is not equal to \'%s\'", str2, str3);
+test_strs_neq (str1, str2, " ");
 test_results();
 ```
-- __Example output__:
-<p align="center"><img margin-left="auto" src="./images/test.png"></p>
+- Example output:
+<p><img margin-left="auto" src="./images/test.png"></p>
+<br>
 
 ### benchmark.h
-- __Description__:  Single header benchmarking library that calculates multi-run average in seconds, milliseconds, microseconds
-- __Example usage__:
+- Calculates multi-run average in seconds, milliseconds, microseconds
+- Example usage:
 ```c
 bm_data_t data;
 bm_init (data);
@@ -29,21 +33,21 @@ for (int n = 0; n < 100; n++) {
     fibonacci (30);
     bm_stop (data);
 }
-bm_print_results (data, "fibonacci(30) x 100");
+bm_print_results (data, "fibonacci()");
 ```
-- __Example output__:
-<p align="center"><img margin-left="auto" src="./images/benchmark.png"></p>
+- Example output:
+<p><img margin-left="auto" src="./images/benchmark.png"></p>
+<br>
 
 ### bits.h
-- __Description__:  Bitwise library
-- __Example usage__:
+- Print bits in variable with n bytes
+- Example usage:
 ```c
-int n = 123456789;
-print_bits(n, sizeof(n));
+int num1 = 123456789;
+print_bits(num1, sizeof(num1));
 ```
-- __Example output__:
+- Example output:
 ```bash
 00000111 01011011 11001101 00010101
 ```
-
 <br>
