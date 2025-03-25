@@ -34,6 +34,10 @@ for (int n = 0; n < 100; n++) {
     bm_stop (data);
 }
 bm_print_results (data, "fibonacci (30)");
+
+double secs = bm_get_secs (data),
+       msecs = bm_get_msecs (data),
+       usecs = bm_get_usecs (data);
 ```
 - Example output:
 <p><img margin-left="auto" src="./images/benchmark.png"></p>
