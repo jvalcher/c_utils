@@ -11,13 +11,14 @@ Miscellaneous C language utilities
 ```c
 int passed = 0,
     failed = 0;
+
 test_init();
 test_cond     (y != 19, "\'y\' is equal to 19", y);
 test_strs_eq  (str2, str3, "\'%s\' is not equal to \'%s\'", str2, str3);
 test_strs_neq (str1, str2, " ");
 test_results();
 ```
-- Example output:
+- Example output (assuming separate test functions et al.):
 <p><img margin-left="auto" src="./images/test.png"></p>
 <br>
 
@@ -27,6 +28,7 @@ test_results();
 - Example usage:
 ```c
 bm_data_t data;
+
 bm_init (data);
 for (int n = 0; n < 100; n++) {
     bm_start (data);
