@@ -4,7 +4,6 @@ Miscellaneous C language utilities
 <br><br>
 
 ## Singler header libraries
-<br>
 
 ### test.h
 - Unit testing library
