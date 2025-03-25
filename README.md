@@ -22,6 +22,7 @@ test_results();
 <p><img margin-left="auto" src="./images/test.png"></p>
 <br>
 
+
 ### benchmark.h
 - Calculates multi-run average in seconds, milliseconds, microseconds
 - Example usage:
@@ -33,11 +34,12 @@ for (int n = 0; n < 100; n++) {
     fibonacci (30);
     bm_stop (data);
 }
-bm_print_results (data, "fibonacci()");
+bm_print_results (data, "fibonacci (30)");
 ```
 - Example output:
 <p><img margin-left="auto" src="./images/benchmark.png"></p>
 <br>
+
 
 ### bits.h
 - Print bits in variable with n bytes
