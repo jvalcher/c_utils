@@ -3,7 +3,7 @@
 #######
 
 label () {
-    printf " ----------\n$1\n ----------\n"
+    printf " \b----------\n$1\n----------\n"
 }
 
 CC () {
@@ -16,6 +16,7 @@ echo ""
 
 label "test.h" && CC ./test_test.c && ./a.out
 label "benchmark.h" && CC ./test_benchmark.c && ./a.out
+label "bits.h" && CC ./test_bits.c && ./a.out
 
 echo ""
 

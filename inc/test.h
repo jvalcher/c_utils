@@ -3,6 +3,10 @@
     -----------------
      Testing library
     -----------------
+    Author: Jeff Valcher
+    URL:    https://github.com/jvalcher/c_utils
+
+
     - Single header
     - Formatted info messages
     - Custom test failure messages
@@ -12,7 +16,7 @@
 
     - Variables
 
-        int passed, failed  - Initialize globally in test file
+        int passed, failed  - Initialize globally or locally
 
     - Functions
         
@@ -166,7 +170,7 @@ extern int failed;
 #define test_strs_eq(str1, str2, ...) ({ \
     if (strcmp((str1), (str2)) != 0) { \
         FAIL; \
-        printf("(%s == %s)", #str1, #str2); \
+        printf("(\"%s\" == \"%s\")", #str1, #str2); \
         print_test_failed(__VA_ARGS__); \
         ++failed; \
     } else { \
@@ -181,7 +185,7 @@ extern int failed;
 #define test_strs_neq(str1, str2, ...) ({ \
     if (strcmp((str1), (str2)) == 0) { \
         FAIL; \
-        printf("(%s != %s)", #str1, #str2); \
+        printf("(\"%s\" != \"%s\")", #str1, #str2); \
         print_test_failed(__VA_ARGS__); \
         ++failed; \
     } else { \
