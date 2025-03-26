@@ -3,8 +3,13 @@
 Miscellaneous programming utilities
 <br><br>
 
+## Contents
+- [Bash scripts and libraries](#bash-scripts-libraries)<br>
+- [Single-header C libraries](#singler-header-c-libraries)<br>
+<br><br>
 
-## Bash scripts
+
+## Bash scripts, libraries
 
 ### tmux_workspaces
 - Create tmux workspaces
