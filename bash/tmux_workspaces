@@ -1,0 +1,81 @@
+#
+# Bash functions for creating multi-window workspaces in tmux
+# -----------------------
+# - NOTE: Running these commands together in a script often produces race
+#         conditions. To ensure this doesn't happen, you can insert ` && \`
+#         at the end of every line but the last.
+#
+# - Set the $TMUX_UTILS environmental variable in your `.bashrc` file.
+#
+#       $ export TMUX_UTILS="$HOME/scripts/_tmux_utils"
+#
+# - Example usage:
+#
+#       #!/bin/bash
+# 
+#       source $TMUX_UTILS
+#       
+#       SES_NAME="leet"
+#       CUTILS_DIR="$HOME/c_utils/"
+#       PROJ_DIR="$HOME/git/my_proj/"
+#       
+#       create_session "$SES_NAME"                              && \
+#                                                                  \
+#       create_window "home" "$HOME"                            && \
+#       create_window "c_utils" "$CUTILS_DIR"                   && \
+#       create_split_window "my proj" "$PROJ_DIR" "$PROJ_DIR"   && \
+#       create_window "man" "$HOME"                             && \
+#                                                                  \
+#       attach_to_session
+# 
+
+SESSION_NAME=""
+SESSION_WIN_CREATED=0
+
+
+# Create session named $1
+create_session() {
+    SESSION_NAME="$1"
+    if [ -n "$TMUX" ]; then
+        current_session=$(tmux display-message -p '#S')
+        if [ "$current_session" = "$SESSION_NAME" ]; then
+            echo "Already in session \"$SESSION_NAME\""
+            exit 1
+        fi
+    fi
+    tmux new-session -d -s "$SESSION_NAME"
+}
+
+# Create window named $1 in dir $2
+create_window() {
+    if [ "$SESSION_WIN_CREATED" -eq 0 ]; then
+        tmux rename-window -t "$SESSION_NAME" "$1"
+        tmux send-keys -t "$SESSION_NAME":"$1" "cd $2" C-m
+        SESSION_WIN_CREATED=1
+    else
+        tmux new-window -t "$SESSION_NAME" -n "$1" -c "$2" 
+    fi
+}
+
+# Create horizontally-split window named $1 in dir $2 and dir $3
+create_split_window() {
+    if [ "$SESSION_WIN_CREATED" -eq 0 ]; then
+        tmux rename-window -t "$SESSION_NAME" "$1"
+        tmux send-keys -t "$SESSION_NAME" "cd $2" C-m
+        tmux split-window -h -t "$SESSION_NAME" -c "$3"
+        SESSION_WIN_CREATED=1
+    else
+        win_id=$(tmux new-window -t "$SESSION_NAME" -n "$1" -c "$2" -P -F "#{window_index}")
+        tmux split-window -h -t "$SESSION_NAME":"$win_id" -c "$3"
+    fi
+}
+
+# Attach to session
+attach_to_session() {
+    if [ -n "$TMUX" ]; then
+        tmux switch-client -t "$SESSION_NAME"
+    else
+        tmux attach-session -t "$SESSION_NAME"
+    fi
+}
+

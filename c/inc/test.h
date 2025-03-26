@@ -102,7 +102,7 @@ extern int failed;
 #define test_init() do { \
     passed = 0; \
     failed = 0; \
-    printf (TEST_DIV CYAN "%s" R " :: " PURPLE "%s" R "()\n" DIV, \
+    printf (TEST_DIV CYAN "%s" R " :: " PURPLE "%s" R "()\n" TEST_DIV, \
             __FILE__, __func__ \
     ); \
 } while (0)

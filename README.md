@@ -1,9 +1,60 @@
 
-# C Utilities
-Miscellaneous C language utilities
+# Utilities
+Miscellaneous programming utilities
 <br><br>
 
-## Singler-header libraries
+
+## Bash scripts
+
+### tmux_workspaces
+- Create tmux workspaces
+- Example usage:
+```bash
+source $TMUX_UTILS
+
+SES_NAME="leet"
+UTILS_DIR="$HOME/utilities/"
+PROJ_DIR="$HOME/git/my_proj/"
+
+create_session "$SES_NAME"
+
+create_window "home" "$HOME"
+create_window "utilities" "$UTILS_DIR"
+create_split_window "my project" "$PROJ_DIR" "$PROJ_DIR"
+create_window "man" "$HOME"
+
+attach_to_session
+```
+<br>
+
+### cpsc
+- Copy the most recent screenshot into the current directory
+- Example usage:
+```bash
+cpsc image_01
+```
+<br>
+
+### echo_paths
+- Print all PATHs
+<br>
+
+### kill_port
+- Kill process by port number
+<br>
+
+### timer
+- CLI timer
+- Example usage:
+```bash
+t  2:15:5  
+t  1::  "Study"   # 1 hour
+t  30  "Sprint"   # 30 seconds
+```
+<br>
+
+
+## Singler-header C libraries
 
 ### test.h
 - Unit testing library
