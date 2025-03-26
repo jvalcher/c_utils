@@ -47,9 +47,9 @@ cpsc image_01
 - CLI timer
 - Example usage:
 ```bash
-t  2:15:5  
-t  1::  "Study"   # 1 hour
-t  30  "Sprint"   # 30 seconds
+timer  2:15:5  
+timer  1::  "Study"   # 1 hour
+timer  30  "Sprint"   # 30 seconds
 ```
 <br>
 
