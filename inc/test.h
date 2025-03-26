@@ -79,13 +79,13 @@
 #include <stdio.h>
 #include <string.h>
 
-#define R       "\033[1;0m"         // reset to default
-#define RED     "\033[1;31m"
-#define CYAN    "\033[1;36m"
-#define GREEN   "\033[1;32m"
-#define YELLOW  "\033[1;33m"
-#define PURPLE  "\033[1;35m"
-#define DIV     "---------------------\n"
+#define R         "\033[1;0m"         // reset to default
+#define RED       "\033[1;31m"
+#define CYAN      "\033[1;36m"
+#define GREEN     "\033[1;32m"
+#define YELLOW    "\033[1;33m"
+#define PURPLE    "\033[1;35m"
+#define TEST_DIV  "---------------------\n"
 
 
 
@@ -99,16 +99,13 @@ extern int failed;
     --------
     - Run at start of every test function
 */
-#define test_init() ({\
-\
+#define test_init() do { \
     passed = 0; \
     failed = 0; \
-\
-    printf (\
-        DIV CYAN "%s" R " :: " PURPLE "%s" R "()\n" DIV, \
-        __FILE__, __func__ \
+    printf (TEST_DIV CYAN "%s" R " :: " PURPLE "%s" R "()\n" DIV, \
+            __FILE__, __func__ \
     ); \
-})
+} while (0)
 
 
 /*
@@ -116,12 +113,12 @@ extern int failed;
     --------
     - Run at the end of every test function
 */
-#define test_results() ({ \
+#define test_results() do { \
     printf (\
         "Passed: " GREEN "%d" R ",  Failed: " RED "%d\n" R "\n", \
         passed, failed \
     ); \
-})
+} while (0)
 
 
 
@@ -135,11 +132,11 @@ extern int failed;
         - Custom error message
     - Printed between test_init() and test_results() output
 */
-#define print_test_failed(...) ({ \
+#define print_test_failed(...) do { \
     printf (CYAN "  Line " YELLOW "%d" R "  ", __LINE__); \
     printf (__VA_ARGS__); \
     printf ("\n"); \
-})
+} while (0)
 
 
 
@@ -152,7 +149,7 @@ extern int failed;
 /*
     Test conditional statement
 */
-#define test_cond(condition, ...) ({ \
+#define test_cond(condition, ...) do { \
     if (!(condition)) { \
         FAIL; \
         printf("(%s)", #condition); \
@@ -161,13 +158,13 @@ extern int failed;
     } else { \
         ++passed; \
     } \
-})
+} while (0)
 
 
 /*
     Test if strings equal
 */
-#define test_strs_eq(str1, str2, ...) ({ \
+#define test_strs_eq(str1, str2, ...) do { \
     if (strcmp((str1), (str2)) != 0) { \
         FAIL; \
         printf("(\"%s\" == \"%s\")", #str1, #str2); \
@@ -176,13 +173,13 @@ extern int failed;
     } else { \
         ++passed; \
     } \
-})
+} while (0)
 
 
 /*
     Test if strings not equal
 */
-#define test_strs_neq(str1, str2, ...) ({ \
+#define test_strs_neq(str1, str2, ...) do { \
     if (strcmp((str1), (str2)) == 0) { \
         FAIL; \
         printf("(\"%s\" != \"%s\")", #str1, #str2); \
@@ -191,17 +188,7 @@ extern int failed;
     } else { \
         ++passed; \
     } \
-})
-
-
-
-/*
-    -----------------------
-     # Integration Testing
-    -----------------------
-    - 
-*/
+} while (0)
 
 
 #endif
-
